@@ -1,7 +1,9 @@
 #include <cstdint>	// fixed-width types
 #include <fstream>	// file system manipulation
+#include <chrono>
+#include <random>
 
-const unsigned int PC_START_ADDRESS = 200;
+const unsigned int PC_START_ADDRESS = 0x200;
 const unsigned int FONTSET_START_ADDRESS = 0x50;
 const unsigned int FONTSET_SIZE = 80;
 
@@ -26,6 +28,9 @@ uint8_t fontset[FONTSET_SIZE] = {	// Built-in characters (0-F). Sprites of 5 byt
 
 class Chip8 {
 public:
+	std::default_random_engine randGen;
+	std::uniform_int_distribution<uint8_t> randByte;
+	
 	uint8_t V[16]{};			// registers
 	uint8_t memory[4096]{};
 	uint16_t index{};
